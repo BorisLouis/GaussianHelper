@@ -72,7 +72,9 @@ def makeSpectra(Spectra,sigma):
         newAmp.append(val/max(Amp))
 
     #create wavelength and energy axis based on the range
-    WLAxis = np.arange(round(WLRange[0]),round(WLRange[1]),1)
+    WLAxis = np.arange(round(WLRange[0])-3*sigma,round(WLRange[1])+3*sigma,1)
+    sigmaEV1 = convertSigma2EV(sigma,eVRange[0])
+    sigmaEV2 = convertSigma2EV(sigma,eVRange[1])
     eVAxis = np.arange(eVRange[0],eVRange[1],0.01)
 
     #Pre-allocate intensity array
@@ -97,21 +99,25 @@ def makeSpectra(Spectra,sigma):
     folder,file = os.path.split(path)
     file,ext = os.path.splitext(file)
 
-    plt.figure(1)
+    fig = plt.figure(1)
     plt.plot(WLAxis,WLIntensity)
+    plt.bar(Spectra['Wavelength'],Spectra['Amp'])
     plt.xlabel('Wavelength')
     plt.ylabel('Intensity')
     fileName = folder+ '/' + file + 'WL'+ '.svg'
     plt.savefig(fileName)
+    plt.close(fig)
 
-    plt.figure(2)
+    fig = plt.figure(2)
     plt.plot(eVAxis,evIntensity)
+    plt.bar(Spectra['eV'], Spectra['Amp'])
     plt.xlabel('eV')
     plt.ylabel('Intensity')
     fileName = folder+ '/' + file + 'eV'+'.svg'
     plt.savefig(fileName)
+    plt.close(fig)
 
-
+    return WLAxis,WLIntensity
 
 
 
