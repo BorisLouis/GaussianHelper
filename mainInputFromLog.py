@@ -1,12 +1,18 @@
 import os
 import input
 
-path = 'D:\Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/03 - March/23 - TQ1TrimerSpectra/TrimerLongShortNoReopt/'
+path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/04 - April/21/01 - Trimer/Test1/'
 fileExt = '.log'
 optRedundant = []
+optRedundant.append('C5 C6 C7 S1 -0.9')
+optRedundant.append('S1 C10 C11 C46 30.6')
+optRedundant.append('C45 C44 C47 S2 14.9')
+optRedundant.append('S2 C50 C51 C82 15.9')
+optRedundant.append('C84 C85 C87 S3 25.7')
+
 calcLine = '#n TD=(NStates=10) B3LYP/6-31G(d)\n'
 charge   = '0 1\n'
-comment = 'test input from log\n'
+comment = 'Trimer After reoptimization for short chain\n'
 
 #STANDARD GEOMETRY OPTIMIZATION
 #'#n B3LYP/6-31G(d) Opt\n'

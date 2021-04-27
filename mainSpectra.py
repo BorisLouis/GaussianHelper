@@ -3,7 +3,7 @@ import output
 import input
 import matplotlib.pyplot as plt
 
-path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/03 - March/12 TQ1 Spectra Results/Comparison 3/'
+path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/03 - March/23 - TQ1TrimerSpectra/PM3Reopt vs no reopt/'
 fileExt = '.log'
 sigma   = 20 #nm
 
@@ -27,6 +27,7 @@ for file in fileList:
 
 
 for i in range(0,len(WLAxes)):
+
     currentWLAxis = WLAxes[i]
     currentIAxis  = WLIntensities[i]
 
@@ -34,7 +35,8 @@ for i in range(0,len(WLAxes)):
     plt.plot(currentWLAxis, currentIAxis)
     plt.xlabel('Wavelength')
     plt.ylabel('Intensity')
-    fileName = path + '/'  + 'compWL' + '.svg'
+
+fileName = path + '/'  + 'compWL' + '.svg'
 
 plt.savefig(fileName)
 plt.close(fig)

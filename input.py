@@ -42,7 +42,22 @@ def readLogFile(path):
                         test = ln.lstrip()
                         if len(test)!=0:
                             if test[0].isnumeric():
-                                coordLine.append(ln)
+
+                                # get line to write from log line
+                                splitLine = ln.split()
+                                atomNumber = splitLine[1]
+                                atom = getAtomFromNumber(atomNumber)
+                                X = splitLine[3]
+                                X = formatNumber(X)
+
+                                Y = splitLine[4]
+                                Y = formatNumber(Y)
+                                Z = splitLine[5]
+                                Z = formatNumber(Z)
+
+                                l2Write = atom + '        ' + X + '      ' + Y + '      ' + Z + '\n'
+                                coordLine.append(l2Write)
+
                         if '***' in ln:
                             break
                 if '***' in ln:
@@ -95,9 +110,61 @@ def makeInputFile(path,cLine,calcLine,comment,charge, coordLine,optRedundant,fre
     f.write('\n')
 
     #add opt redundant
-    for line in optRedundant:
-        f.write(line)
+    if len(optRedundant)!=0:
+        optRedundantLines = getOptRedundant(optRedundant, coordLine)
+        for line in optRedundantLines:
+            f.write(line)
+            f.write('\n')
+    f.write('\n')
     f.close()
+
+def getOptRedundant(optRedundant,coordLine):
+    wrapLine = optRedundant.pop(0)
+    wrapLine = wrapLine.split()
+    optRedLine = []
+    for line in optRedundant:
+        newStr = wrapLine[0]
+        currLine = line.split()
+
+        if isNumber(currLine[-1]):
+            fixedCoord = currLine.pop()
+        else:
+            fixedCoord = ''
+
+        for elem in currLine:
+            atomNumber = getAtomNumber(elem,coordLine)
+            newStr = newStr + ' ' + str(atomNumber)
+
+        newStr = newStr + ' '+ wrapLine[1] + ' ' + fixedCoord
+
+        optRedLine.append(newStr)
+
+    return optRedLine
+
+def getAtomNumber(atomCoord,coordLine):
+    counter = 0
+    atomCounter = 0
+
+    atom = atomCoord[0]
+    atomN = atomCoord[1:]
+
+    for line in coordLine:
+        counter = counter +1
+        if atom in line:
+            atomCounter = atomCounter+1
+
+        if atomCounter == int(atomN):
+            return counter
+
+
+def isNumber(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
 
 def getFreeze(freeze):
     frz = dict()
@@ -146,52 +213,6 @@ def applyFreeze(line,freeze,atomNumber):
 
     return newLine
 
-
-
-
-def makeInputFromLog(path,cLine,calcLine,comment,charge,coordLine,optRedundant):
-    #get path to generate file
-    folder,file = os.path.split(path)
-    fileName,ext = os.path.splitext(file)
-    fileName = fileName+'logInp'
-    path2Use = folder + '/' + fileName+'.com'
-
-    #create file
-    f = open(path2Use, 'w')
-    # add computer related command
-    for line in cLine:
-        f.write(line)
-    f.write('\n')
-
-    for line in calcLine:
-        f.write(line)
-    f.write('\n')
-    f.write(comment)
-    f.write('\n')
-
-    f.write(charge)
-    line2Write = []
-    for line in coordLine:
-    #get line to write from log line
-        splitLine = line.split()
-        atomNumber = splitLine[1]
-        atom = getAtomFromNumber(atomNumber)
-        X = splitLine[3]
-        X = formatNumber(X)
-
-        Y = splitLine[4]
-        Y = formatNumber(Y)
-        Z = splitLine[5]
-        Z = formatNumber(Z)
-
-        l2Write = atom + '        ' + X + '      ' +Y+ '      '+ Z + '\n'
-
-        f.write(l2Write)
-
-    f.write('\n')
-
-    for line in optRedundant:
-        f.write(line)
 
 def formatNumber(number):
 
