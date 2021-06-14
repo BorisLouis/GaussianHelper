@@ -3,7 +3,7 @@ import output
 import input
 import matplotlib.pyplot as plt
 
-path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/03 - March/23 - TQ1TrimerSpectra/PM3Reopt vs no reopt/'
+path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/04 - April/21/Tri2Penta/'
 fileExt = '.log'
 sigma   = 20 #nm
 
@@ -35,6 +35,8 @@ for i in range(0,len(WLAxes)):
     plt.plot(currentWLAxis, currentIAxis)
     plt.xlabel('Wavelength')
     plt.ylabel('Intensity')
+
+plt.legend(['Trimer','Tetramer','Pentamer'])
 
 fileName = path + '/'  + 'compWL' + '.svg'
 

@@ -134,9 +134,13 @@ def getOptRedundant(optRedundant,coordLine):
         for elem in currLine:
             atomNumber = getAtomNumber(elem,coordLine)
             newStr = newStr + ' ' + str(atomNumber)
+        if wrapLine[1] == 'B':
+            angStr = newStr+ ' ='+fixedCoord + ' ' + wrapLine[1]
+            newStr = newStr + ' '+ wrapLine[2]
+        else:
+            newStr = newStr + ' ' + wrapLine[1]
 
-        newStr = newStr + ' '+ wrapLine[1] + ' ' + fixedCoord
-
+        optRedLine.append(angStr)
         optRedLine.append(newStr)
 
     return optRedLine
