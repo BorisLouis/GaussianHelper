@@ -21,6 +21,7 @@ def readFile(path):
         if '#' in line:
             calcLine.append(line)
         if line[0] == 'C':
+            coordLine.append(line)
             for l in file2Read:
                 coordLine.append(l)
 
@@ -107,7 +108,7 @@ def makeInputFile(path,cLine,calcLine,comment,charge, coordLine,optRedundant,fre
             l2Write = applyFreeze(line,freeze,atomNumber)
             f.write(l2Write)
 
-    f.write('\n')
+    #f.write('\n')
 
     #add opt redundant
     if len(optRedundant)!=0:

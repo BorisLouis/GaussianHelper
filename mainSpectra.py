@@ -3,9 +3,13 @@ import output
 import input
 import matplotlib.pyplot as plt
 
-path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/04 - April/21/Tri2Penta/'
+path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/06 - June/14 - PM3 & basis set test/02 - TDDFT with different basis set/Results'
 fileExt = '.log'
 sigma   = 20 #nm
+
+# test if path is complete or not, add '/' if needed
+if path[-1:] != '/':
+    path = path + '/'
 
 # get file in the directory
 fileList = input.getFileList(path,fileExt)
@@ -36,7 +40,7 @@ for i in range(0,len(WLAxes)):
     plt.xlabel('Wavelength')
     plt.ylabel('Intensity')
 
-plt.legend(['Trimer','Tetramer','Pentamer'])
+plt.legend(['3-21G','6-21G','6-21Gd','Lan2DZ2'])
 
 fileName = path + '/'  + 'compWL' + '.svg'
 
