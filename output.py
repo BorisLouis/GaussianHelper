@@ -95,6 +95,7 @@ def makeSpectra(Spectra,sigma):
         evIntensity = evIntensity + tmpWLeVGauss
 
     print(Wavelength[Amp == max(Amp)])
+    print(eV[Amp == max(Amp)])
 
     path = Spectra["path"]
     folder,file = os.path.split(path)

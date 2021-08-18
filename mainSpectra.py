@@ -3,10 +3,10 @@ import output
 import input
 import matplotlib.pyplot as plt
 
-path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/06 - June/14 - PM3 & basis set test/02 - TDDFT with different basis set/Results'
+path = 'D:/Documents/Unif/PhD/2021-Data/Quantum Calculations/2021/06 - June/21 - Scaling up And solvent/Results'
 fileExt = '.log'
 sigma   = 20 #nm
-
+legend = ['Trimer','TrimerThio','Pentamer','PentamerThio','Octramer','OctamerThio',]
 # test if path is complete or not, add '/' if needed
 if path[-1:] != '/':
     path = path + '/'
@@ -40,7 +40,7 @@ for i in range(0,len(WLAxes)):
     plt.xlabel('Wavelength')
     plt.ylabel('Intensity')
 
-plt.legend(['3-21G','6-21G','6-21Gd','Lan2DZ2'])
+plt.legend(legend)
 
 fileName = path + '/'  + 'compWL' + '.svg'
 
